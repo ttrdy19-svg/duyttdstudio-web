@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nghe nhạc và khám phá các kênh YouTube của Duy TTD Studio.">
+  <meta property="og:title" content="Duy TTD Studio — Nghe nhạc &amp; xem MV">
+  <meta property="og:description" content="Xưởng nhạc độc lập Việt Nam. Thưởng thức MV từ 5 kênh của Duy TTD Studio.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://i.ytimg.com/vi/3l5bYrC7V38/hqdefault.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Duy TTD Studio — Nghe nhạc &amp; xem MV</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell">
+      <div class="masthead">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">♪</span>
+          <span>
+            <span class="brand-name">DUY TTD STUDIO</span>
+            <span class="masthead-label">Âm nhạc &amp; hình ảnh</span>
+          </span>
+        </div>
+        <div class="tab-row primary-tabs" id="site-tabs" role="tablist" aria-label="Các mục của studio"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell" id="site-panels">
+    <noscript>Bật JavaScript để chuyển mục và chọn bài hát.</noscript>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <span>Duy TTD Studio</span>
+      <nav aria-label="Thông tin studio">
+        <a href="./gioi-thieu.html">Giới thiệu</a> ·
+        <a href="./lien-he.html">Liên hệ</a> ·
+        <a href="./chinh-sach-rieng-tu.html">Chính sách riêng tư</a>
+      </nav>
+    </div>
+  </footer>
+
+  <template id="youtube-page">
+    <div class="channel-nav">
+      <span class="channel-nav-label" aria-hidden="true">Kênh YouTube</span>
+      <div class="tab-row channel-tabs" id="channel-tabs" role="tablist" aria-label="Kênh YouTube của studio"></div>
+    </div>
+    <section id="channel-panel" role="tabpanel" tabindex="0">
+      <div class="channel-hero">
+        <div>
+          <p class="eyebrow" id="channel-style"></p>
+          <h1 class="hero-title" id="channel-title"></h1>
+          <p class="hero-copy" id="channel-description"></p>
+          <div class="actions">
+            <button class="button button-primary" type="button" id="listen-now">▶ Nghe ngay</button>
+            <a class="button button-quiet" id="channel-link" target="_blank" rel="noopener noreferrer">Mở kênh YouTube ↗</a>
+            <button class="button button-quiet" type="button" id="contact-action">Liên hệ</button>
+          </div>
+          <p class="hero-handle" id="channel-handle"></p>
+        </div>
+        <div class="hero-record" aria-hidden="true"><span></span><span></span></div>
+      </div>
+
+      <div class="listening-layout">
+        <section class="player-column" aria-labelledby="selected-title">
+          <div class="media-frame" id="player">
+            <button class="media-cover" id="media-cover" type="button">
+              <span class="cover-play" aria-hidden="true">▶</span>
+              <span class="cover-caption"></span>
+            </button>
+            <iframe id="youtube-player" hidden title="Trình phát YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="selection">
+            <p class="eyebrow">Bài đang chọn</p>
+            <h2 id="selected-title" tabindex="-1"></h2>
+            <p class="track-meta" id="selected-meta"></p>
+            <div class="actions">
+              <button class="button button-primary" type="button" id="play-track">▶ Phát</button>
+              <button class="button button-quiet" type="button" id="previous-track">‹ Bài trước</button>
+              <button class="button button-quiet" type="button" id="next-track">Bài tiếp ›</button>
+              <button class="button button-quiet" type="button" id="shuffle-track">Trộn bài</button>
+              <a class="button button-quiet" id="popup-track" target="_blank" rel="noopener">Cửa sổ nổi ↗</a>
+            </div>
+            <p class="player-status" id="player-status" role="status"></p>
+            <a class="watch-link" id="watch-track" target="_blank" rel="noopener noreferrer">Xem trên YouTube ↗</a>
+          </div>
+        </section>
+
+        <section class="library" aria-labelledby="library-title">
+          <div class="library-heading">
+            <h2 id="library-title">Bài hát nổi bật</h2>
+            <span class="sample-pill" id="data-stamp">Video trên kênh</span>
+          </div>
+          <div class="search-box">
+            <label for="song-search">Tìm bài hát</label>
+            <input type="search" id="song-search" placeholder="Nhập tên bài hoặc thể loại…" autocomplete="off">
+          </div>
+          <p class="results-count" id="results-count" role="status"></p>
+          <div class="track-grid" id="track-grid"></div>
+        </section>
+      </div>
+    </section>
+  </template>
+
+  <template id="music-page">
+    <p>Khám phá các bản thu và MV đã phát hành trên 5 kênh YouTube của studio.</p>
+    <button class="button button-primary" type="button" data-open-youtube>Nghe nhạc và xem MV</button>
+  </template>
+
+  <!-- Sinh từ HANDLES và kenhTen bằng node web/demo/chay.cjs --cap-nhat-kenh. -->
+  <script type="application/json" id="channel-data">
+[
+  {
+    "id": "other",
+    "handle": "@MocNguQuan",
+    "name": "Mộc Ngư Quán"
+  },
+  {
+    "id": "duy",
+    "handle": "@Duy-TTD",
+    "name": "Duy TTD"
+  },
+  {
+    "id": "xing",
+    "handle": "@Xing8424",
+    "name": "Xing"
+  },
+  {
+    "id": "en",
+    "handle": "@TheWayfaringBardOfficial",
+    "name": "The Wayfaring Bard"
+  },
+  {
+    "id": "zh",
+    "handle": "@NguoiHatRongOfficial",
+    "name": "Người Hát Rong"
+  }
+]
+</script>
+
+  <script type="application/json" id="channel-details">
+  {
+    "channels": {
+      "duy": {
+        "style": "Tình ca · Cổ phong",
+        "description": "Những bản tình ca tiếng Việt, từ pop ballad đến cổ phong, qua giọng hát của Duy TTD. Hình tượng kênh là một chàng trai nam trẻ tóc bạc.",
+        "tone": "rose"
+      },
+      "xing": {
+        "style": "Lo-fi · Nhạc chill",
+        "description": "Một góc nghe nhạc nhẹ nhàng cùng Xing và chú cún đeo tai nghe, dành cho những lúc muốn chậm lại.",
+        "tone": "sage"
+      },
+      "en": {
+        "style": "Folk · Nhạc tiếng Anh",
+        "description": "Những câu chuyện viễn du kể bằng nhạc folk và tiếng đàn mộc.",
+        "tone": "gold"
+      },
+      "zh": {
+        "style": "Cổ phong · Nhạc Hoa",
+        "description": "Không gian nghe nhạc Hoa với âm hưởng cổ phong và chuyện người đi xa.",
+        "tone": "violet"
+      },
+      "other": {
+        "style": "Du Ca · Chú Lạ",
+        "description": "Nghe các bản tự sự và cổ phong của Du Ca (Du Ca Lãng, Chú Lạ) cùng những tác phẩm khác của studio.",
+        "tone": "blue"
+      }
+    }
+  }
+  </script>
+  <!-- Bản mở trực tiếp; chay.cjs / tao-web.cjs --demo đồng bộ từ JSON khi phục vụ / dựng. -->
+  <script type="application/json" id="public-video-data">
+{
+  "docLuc": "2026-11-21T21:27:56.564Z",
+  "channels": [
+    {
+      "id": "other",
+      "handle": "@MocNguQuan",
+      "docLuc": "2026-11-21T21:27:56.564Z",
+      "videos": [
+        {
+          "id": "3l5bYrC7V38",
+          "tieuDe": "Nét Mực Nghiêng | Du Ca | Nhạc Cổ Phong Tự Sự Trầm Lắng",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/3l5bYrC7V38/hqdefault.jpg"
+        },
+        {
+          "id": "gtvYjwYs71Q",
+          "tieuDe": "Qua Hết Phong Sương | Du Ca | Tango Pop Cổ Phong Phiêu Bạt",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/gtvYjwYs71Q/hqdefault.jpg"
+        },
+        {
+          "id": "kROzzp2h4Lk",
+          "tieuDe": "《Minh hôn》  House - Dark Cổ Phong 🖤  Đôi tình nhân tìm đến cái chết để kết duyên vĩnh viễn",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/kROzzp2h4Lk/hqdefault.jpg"
+        },
+        {
+          "id": "WPNepkV8V5E",
+          "tieuDe": "《Tình trủng》House - Dark Cổ Phong 🖤 Tình yêu đã tan vỡ, chìm trong tuyệt vọng và men say",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/WPNepkV8V5E/hqdefault.jpg"
+        },
+        {
+          "id": "Ga7dFXfP0rM",
+          "tieuDe": "《Đừng gọi tên》 Pop - Cổ Phong 🖤 Tình yêu dang dở và nỗi nhớ cố chôn giấu",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/Ga7dFXfP0rM/hqdefault.jpg"
+        },
+        {
+          "id": "YKGIIuv0iI4",
+          "tieuDe": "《Chừa Một Khoảng Trắng》 ALbum Nhạc Cổ Phong Cover  2026 | Người Hát Rong",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/YKGIIuv0iI4/hqdefault.jpg"
+        },
+        {
+          "id": "XahlwmTC58M",
+          "tieuDe": "《Đừng hỏi duyên vì sao》 Pop - Cổ Phong 🖤 Giữ nỗi nhớ và những kỷ niệm chưa thể phôi phai",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/XahlwmTC58M/hqdefault.jpg"
+        },
+        {
+          "id": "rtF0kC1w6OE",
+          "tieuDe": "《Nụ Hồng Mong Manh》 Nhạc Hoa 8x Cover 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/rtF0kC1w6OE/hqdefault.jpg"
+        },
+        {
+          "id": "eo0mZsBpTrM",
+          "tieuDe": "《Vô  Tình》 Nhạc Trữ Tình Cover 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/eo0mZsBpTrM/hqdefault.jpg"
+        },
+        {
+          "id": "HVjk4I6nANE",
+          "tieuDe": "《Cheri Cheri Lady》 Nhạc Âu Mỹ 8x Cover  2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/HVjk4I6nANE/hqdefault.jpg"
+        },
+        {
+          "id": "yyO95iFIDVc",
+          "tieuDe": "《Tiên Đồng Ngọc Nữ》 Nhạc Cổ Phong 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/yyO95iFIDVc/hqdefault.jpg"
+        },
+        {
+          "id": "-HThb7qZKts",
+          "tieuDe": "《Mạnh  Bà》 Nhạc Cổ Phong Cover  2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/-HThb7qZKts/hqdefault.jpg"
+        },
+        {
+          "id": "_vNTr1thV4k",
+          "tieuDe": "《Kẻ Say Tình 2》 Nhạc Trữ Tình Cover 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/_vNTr1thV4k/hqdefault.jpg"
+        },
+        {
+          "id": "7jT-bP_AEMI",
+          "tieuDe": "《Vĩnh Biệt  Màu Xanh》 Nhạc Hoa 8x Cover 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/7jT-bP_AEMI/hqdefault.jpg"
+        },
+        {
+          "id": "WqST9agHafE",
+          "tieuDe": "《Nguyệt Hạ Lạc Phách》 Nhạc Cổ Phong 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/WqST9agHafE/hqdefault.jpg"
+        },
+        {
+          "id": "HRupff2LboA",
+          "tieuDe": "《Du Du Trường  Dạ》 Nhạc Cổ Phong 2026 | Du Ca Lang",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/HRupff2LboA/hqdefault.jpg"
+        },
+        {
+          "id": "7xKfb8N5jIk",
+          "tieuDe": "《Họa Khúc Chia Ly》 Pop R&B Cổ Phong 2026 | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/7xKfb8N5jIk/hqdefault.jpg"
+        },
+        {
+          "id": "jwylR-NAuY0",
+          "tieuDe": "《Vô Thường》 Pop R&B Trữ Tình 2026 | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/jwylR-NAuY0/hqdefault.jpg"
+        },
+        {
+          "id": "x3pp4Z5EmJQ",
+          "tieuDe": "《Đoạn Cầm》 Pop R&B Cổ Phong 2026 | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/x3pp4Z5EmJQ/hqdefault.jpg"
+        },
+        {
+          "id": "ZGpi1aGCPDg",
+          "tieuDe": "《Một Thoáng Tương Phùng》Pop Ballad Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/ZGpi1aGCPDg/hqdefault.jpg"
+        },
+        {
+          "id": "ToKQbRidmBc",
+          "tieuDe": "《Khói Sóng Loang》Pop Ballad Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/ToKQbRidmBc/hqdefault.jpg"
+        },
+        {
+          "id": "5qDnEIY92jw",
+          "tieuDe": "《ToáI Xuân Thì》 Acoustic Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/5qDnEIY92jw/hqdefault.jpg"
+        },
+        {
+          "id": "nEc52LrcAhk",
+          "tieuDe": "《Vong Xuyên Hữu Ý》 Acoustic Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/nEc52LrcAhk/hqdefault.jpg"
+        },
+        {
+          "id": "pKOqWVHF9iI",
+          "tieuDe": "《Truy Mộng Nhân》 Acoustic Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/pKOqWVHF9iI/hqdefault.jpg"
+        },
+        {
+          "id": "WG3Q6GSGOAc",
+          "tieuDe": "《Trót Trao Duyên》 Acoustic Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/WG3Q6GSGOAc/hqdefault.jpg"
+        },
+        {
+          "id": "-2qJ_uhuLqQ",
+          "tieuDe": "《Dạ Khúc Bi Thương》 Pop Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/-2qJ_uhuLqQ/hqdefault.jpg"
+        },
+        {
+          "id": "HI7m4AnM0AM",
+          "tieuDe": "Album《Mộc Ngư Khúc》Quyển 3 • Chấp Niệm | EDM Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/HI7m4AnM0AM/hqdefault.jpg"
+        },
+        {
+          "id": "HblJ7PPJuz4",
+          "tieuDe": "《Chờ Người》 Pop Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/HblJ7PPJuz4/hqdefault.jpg"
+        },
+        {
+          "id": "yE_Ac-0Mat4",
+          "tieuDe": "《Một Đời Tương Tư》 Pop Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/yE_Ac-0Mat4/hqdefault.jpg"
+        },
+        {
+          "id": "_icZM-eODzg",
+          "tieuDe": "Album《Mộc Ngư Khúc》Quyển 2 • Hồng Trần | EDM Cổ Phong | Mộc Ngư Quán",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/_icZM-eODzg/hqdefault.jpg"
+        }
+      ]
+    },
+    {
+      "id": "duy",
+      "handle": "@Duy-TTD",
+      "docLuc": "2026-11-21T21:27:56.564Z",
+      "videos": [
+        {
+          "id": "4a-3WC03OZc",
+          "tieuDe": "Thư Chưa Gửi | Duy TTD | Official Pop Ballad MV Buồn Dang Dở",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/4a-3WC03OZc/hqdefault.jpg"
+        },
+        {
+          "id": "qG8MVYktLM8",
+          "tieuDe": "《Nếu Mai Này Gặp Lại》🥀 Duy TTD",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/qG8MVYktLM8/hqdefault.jpg"
+        },
+        {
+          "id": "QoJZkz_YOvU",
+          "tieuDe": "《Ai soi được lòng ai》 🪷 Áo hoa sang trọng có che được lòng đau 🥀 Duy TTD",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/QoJZkz_YOvU/hqdefault.jpg"
+        },
+        {
+          "id": "dxtuLn8CU4E",
+          "tieuDe": "《Nước qua cầu》🪷 Nước qua cầu chẳng quay đầu -  Bến còn đây ai đợi nhau 🥀 Duy TTD",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/dxtuLn8CU4E/hqdefault.jpg"
+        }
+      ]
+    },
+    {
+      "id": "xing",
+      "handle": "@Xing8424",
+      "docLuc": "2026-11-21T21:27:56.564Z",
+      "videos": [
+        {
+          "id": "OPs2hodaVVU",
+          "tieuDe": "Đời ơi kệ nhé | Xing  🌸 Hôm nay còn nắng cứ sống cho mình",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/OPs2hodaVVU/hqdefault.jpg"
+        },
+        {
+          "id": "CQQ7m18c_58",
+          "tieuDe": "Chuyệm cũ qua rồi | Xing  🌸 Chuyện cũ qua rồi thôi cứ để qua",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/CQQ7m18c_58/hqdefault.jpg"
+        },
+        {
+          "id": "r67jr5hEovI",
+          "tieuDe": "Chẳng cần giống ai | Xing🎶 (Lyrics video) 🌸 Ta chẳng cần giống ai chẳng cần giống ai",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/r67jr5hEovI/hqdefault.jpg"
+        },
+        {
+          "id": "Qgnri6RCa7s",
+          "tieuDe": "Mặc gió đưa đi  | Xing🎶 (Lyrics video) 🌸 Thôi thì mặc gió đưa đi đưa đi",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/Qgnri6RCa7s/hqdefault.jpg"
+        }
+      ]
+    },
+    {
+      "id": "en",
+      "handle": "@TheWayfaringBardOfficial",
+      "docLuc": "2026-11-21T21:27:56.564Z",
+      "videos": [
+        {
+          "id": "PmJZ0oKZwNA",
+          "tieuDe": "The Wayfaring Bard - A Cowboy's Wedding Ring",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/PmJZ0oKZwNA/hqdefault.jpg"
+        },
+        {
+          "id": "YTxusCIcnew",
+          "tieuDe": "After the Lights Go Down - Songs for Quiet Nights and Old Memories | The Wayfaring Bard",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/YTxusCIcnew/hqdefault.jpg"
+        },
+        {
+          "id": "2sGXWq50dJY",
+          "tieuDe": "Where the Highway Turns to Gold - Roads, Memories and New Beginnings | The Wayfaring Bard",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/2sGXWq50dJY/hqdefault.jpg"
+        }
+      ]
+    },
+    {
+      "id": "zh",
+      "handle": "@NguoiHatRongOfficial",
+      "docLuc": "2026-11-21T21:27:56.564Z",
+      "videos": [
+        {
+          "id": "prN4omJj_lc",
+          "tieuDe": "《Chừa một khoảng trắng》Album Nhân sinh và Tình đời 2026 | Người Hát Rong",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/prN4omJj_lc/hqdefault.jpg"
+        },
+        {
+          "id": "DJT-x04CUdc",
+          "tieuDe": "《Tiếng mưa rơi》Nhạc cổ phong suy 2026 | Người Hát Rong",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/DJT-x04CUdc/hqdefault.jpg"
+        },
+        {
+          "id": "vjz4xad-Ces",
+          "tieuDe": "《Nước qua cầu》Nhạc cổ phong suy 2026 | Người Hát Rong",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/vjz4xad-Ces/hqdefault.jpg"
+        },
+        {
+          "id": "VQG3ermzRw8",
+          "tieuDe": "《Đừng hỏi duyên vì sao》Nhạc cổ phong suy 2026 | Người Hát Rong",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/VQG3ermzRw8/hqdefault.jpg"
+        },
+        {
+          "id": "mwR1Gp-CMoQ",
+          "tieuDe": "《Tàn Hương》Nhạc cổ phong suy 2026 | Người Hát Rong",
+          "thoiLuong": "",
+          "anh": "https://i.ytimg.com/vi/mwR1Gp-CMoQ/hqdefault.jpg"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <script type="application/json" id="site-config">
+{
+  "publicEmail": "contact@duyttdstudio.io.vn",
+  "siteUrl": "https://duyttdstudio.io.vn"
+}
+</script>
+</body>
+</html>

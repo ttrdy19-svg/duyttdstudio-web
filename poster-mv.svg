@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140f0c"/>
+      <stop offset="50%" stop-color="#2a1d17"/>
+      <stop offset="100%" stop-color="#191310"/>
+    </linearGradient>
+    <radialGradient id="moonGlow" cx="75%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#f5e1c8" stop-opacity="0.9"/>
+      <stop offset="35%" stop-color="#d4a373" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#140f0c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#faedcd"/>
+      <stop offset="50%" stop-color="#d4a373"/>
+      <stop offset="100%" stop-color="#e09f3e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="720" fill="url(#bgGrad)"/>
+  <rect width="1280" height="720" fill="url(#moonGlow)"/>
+
+  <!-- Mountain Silhouettes -->
+  <path d="M-50,720 L150,420 L380,560 L620,380 L880,540 L1150,360 L1350,720 Z" fill="#1b1411" opacity="0.8"/>
+  <path d="M0,720 L240,490 L520,620 L800,450 L1080,600 L1320,440 L1400,720 Z" fill="#120d0b" opacity="0.95"/>
+
+  <!-- Moon Sphere -->
+  <circle cx="960" cy="220" r="70" fill="#fcf6ec" opacity="0.85"/>
+  <circle cx="960" cy="220" r="100" fill="none" stroke="#d4a373" stroke-width="2" opacity="0.3"/>
+
+  <!-- Water Surface & Mist -->
+  <rect x="0" y="580" width="1280" height="140" fill="#0d0908" opacity="0.9"/>
+  <line x1="0" y1="580" x2="1280" y2="580" stroke="#d4a373" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Play Circle Center -->
+  <circle cx="640" cy="340" r="54" fill="#221a16" stroke="#c98e4b" stroke-width="3" opacity="0.9"/>
+  <polygon points="630,318 662,340 630,362" fill="#faedcd"/>
+
+  <!-- Title & Info -->
+  <text x="640" y="440" font-family="'Baloo 2', sans-serif" font-size="34" font-weight="700" fill="url(#textGrad)" text-anchor="middle">MỘNG CHẠM ĐÊM TRĂNG</text>
+  <text x="640" y="480" font-family="'Baloo 2', sans-serif" font-size="20" font-weight="500" fill="#bfaea0" text-anchor="middle">Duy TTD · MV Full HD 1080p Studio Demo</text>
+  <text x="640" y="650" font-family="'Baloo 2', sans-serif" font-size="16" fill="#827266" text-anchor="middle">Duy TTD Studio — Âm nhạc &amp; Dựng MV</text>
+</svg>
