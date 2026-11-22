@@ -1,4 +1,6 @@
 /* Duy TTD Studio · phòng nghe */
+/* 22/11: Georgia thiếu chữ Việt dấu chồng (ầ, ặ, ắ…) → vỡ dấu ở tiêu đề; Noto Serif đủ bộ tiếng Việt, nạp ở đây để mọi trang (cả trang thông tin) đều có. */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&subset=vietnamese&display=swap");
 
 :root {
   color-scheme: dark;
@@ -12,7 +14,7 @@
   --pink-light: #ffb5c6;
   --gold: #e3b583;
   --ink: #251118;
-  --serif: Georgia, "Times New Roman", serif;
+  --serif: "Noto Serif", Georgia, "Times New Roman", serif;
   --sans: "Baloo 2", "Segoe UI", system-ui, sans-serif;
   --tone: #d7869c;
   --tone-shadow: #4e243d;
