@@ -1,0 +1,36 @@
+/* Gold Obsidian motion. Content stays visible without JavaScript. */
+.motion-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 1000;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #8b692b, #d4b35e 55%, #fff0b5);
+  box-shadow: 0 0 8px #d4b35e66;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :is(main section, .section-heading, .channel-hero, .track-card, .artist-card, .resource-card, .mini-tool) {
+    transition: opacity 800ms cubic-bezier(.22, 1, .36, 1) var(--motion-delay, 0ms),
+      translate 800ms cubic-bezier(.22, 1, .36, 1) var(--motion-delay, 0ms);
+  }
+  .motion-pending { opacity: 0; translate: 0 18px; }
+}
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .motion-glow {
+    border-image: radial-gradient(180px circle at var(--motion-x) var(--motion-y), #efcf76bb, #d4b35e22 80%, transparent) 1;
+  }
+}
+.motion-reduced .motion-progress { display: none; }
+.motion-reduced .motion-pending { opacity: 1; translate: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .motion-progress { display: none; }
+  .motion-pending { opacity: 1; translate: none; }
+}
